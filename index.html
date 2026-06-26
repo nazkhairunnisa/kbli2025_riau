@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usaha Riau</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>USAHA RIAU DAN <br> KLASIFIKASINYA PADA KBLI2025</h1>
+
+    <p class="subtitle">
+        Cari nama usaha, aktivitas usaha, atau kode KBLI
+    </p>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="search"
+            placeholder=""
+        >
+        <button id="btnCari">Cari</button>
+    </div>
+
+    <div id="result-count"></div>
+
+    <div id="results"></div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

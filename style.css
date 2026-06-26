@@ -1,0 +1,203 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,sans-serif;
+}
+
+body{
+    background:#fffdf8;
+    color:#333;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+h1{
+    text-align:center;
+    color:#f57c00;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:25px;
+}
+
+#search{
+    width:100%;
+    padding:18px;
+    border-radius:15px;
+    border:2px solid #ffd54f;
+    font-size:18px;
+    outline:none;
+}
+
+#search:focus{
+    border-color:#f57c00;
+}
+
+#result-count{
+    margin-top:20px;
+    margin-bottom:15px;
+    font-weight:bold;
+    color:#f57c00;
+}
+
+.card{
+    background:white;
+    border-left:8px solid #ff9800;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.kbli{
+    font-size:22px;
+    font-weight:bold;
+    color:#e65100;
+}
+
+.judul{
+    font-size:18px;
+    margin-top:5px;
+    font-weight:600;
+}
+
+.kategori{
+    display:inline-block;
+    margin-top:10px;
+    padding:5px 10px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:500;
+}
+
+.kategori-esensial{
+    background:#d1e7dd;
+    color:#0f5132;
+}
+
+.kategori-umum{
+    background:#fff3cd;
+    color:#664d03;
+}
+
+.kategori-potensial{
+    background:#cfe2ff;
+    color:#084298;
+}
+
+
+.contoh{
+    margin-top:12px;
+    color:#555;
+    line-height:1.5;
+}
+
+.score{
+    margin-top:10px;
+    color:#999;
+    font-size:12px;
+}
+
+.keyword{
+    margin-top:10px;
+    color:#777;
+    font-size:14px;
+}
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+#search{
+    flex:1;
+}
+
+#btnCari{
+    background:#f57c00;
+    color:white;
+    border:none;
+    padding:0 25px;
+    border-radius:15px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+#btnCari:hover{
+    background:#ef6c00;
+}
+
+.loading{
+    display:none;
+    margin-top:15px;
+    margin-bottom:15px;
+    color:#f57c00;
+    font-weight:bold;
+}
+
+/* --- Tambahan Style untuk Tombol Lihat Detail & Konten Detail --- */
+
+.detail-button {
+    background: #ff9800; /* Mengikuti warna border-left dari kartu Anda */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px; /* Selaras dengan border-radius elemen kategori */
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 15px;
+    display: inline-block;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.detail-button:hover {
+    background: #f57c00; /* Berubah menjadi oranye gelap saat di-hover, senada dengan judul h1 */
+}
+
+.detail-button:active {
+    transform: scale(0.97); /* Sedikit mengecil saat diklik agar interaktif */
+}
+
+.detail {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fffdf8; /* Menyamakan warna background utama halaman agar kontras di dalam kartu putih */
+    border-radius: 8px;
+    border-left: 4px solid #ffd54f; /* Garis tepi kuning lembut khas tema Anda */
+    text-align: left;
+}
+
+.detail hr {
+    border: 0;
+    border-top: 1px solid #ffe082;
+    margin-bottom: 12px;
+}
+
+.detail b {
+    color: #e65100; /* Warna cokelat-oranye gelap agar kontras dan mudah dibaca */
+    font-size: 14px;
+    display: block;
+    margin-top: 8px;
+}
+
+.detail ul {
+    margin: 6px 0 12px 20px;
+    padding: 0;
+    color: #444;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.detail li {
+    margin-bottom: 4px;
+}
