@@ -1,0 +1,43 @@
+Versi 1
+Rilis : 26 Juni 2026
+Fitur : Pencarian berdasarkan kata kunci
+KBLI yang tersedia : IJKLQRSTV
+Key & Bobot pencarian : 
+keys: [
+                { name: "kbli5", weight: 1 },
+                { name: "judul", weight: 5 },
+                { name: "contoh", weight: 5 },
+                { name: "keyword", weight: 5 }
+            ]
+
+Versi 2
+Rilis : 26 Juni 2026
+Fitur : Pencarian berdasarkan kata kunci
+KBLI yang tersedia : IJKLQRSTV + DE
+Key & Bobot pencarian :
+ keys: [
+            { name: "kbli5", weight: 1 },
+            { name: "judul", weight: 8 },
+            { name: "keyword", weight: 10 },
+            { name: "contoh", weight: 7 },
+            { name: "ciri_usaha", weight: 6 },
+            { name: "proses", weight: 5 },
+            { name: "output", weight: 5 },
+            { name: "bahan_baku", weight: 3 },
+            { name: "kategori", weight: 2 },
+            { name: "digital_hijau", weight: 1 }
+        ]
+
+Alasan update bobot
+| Kolom           | Bobot | Alasan                                                         |
+| --------------- | ----: | -------------------------------------------------------------- |
+| `keyword`       |    10 | Sinonim dan istilah masyarakat adalah sumber pencarian utama.  |
+| `judul`         |     8 | Nama resmi KBLI harus tetap sangat relevan.                    |
+| `contoh`        |     7 | Banyak pengguna mencari berdasarkan contoh usaha.              |
+| `ciri_usaha`    |     6 | Membantu mengenali karakteristik usaha.                        |
+| `proses`        |     5 | Penting untuk pencarian berdasarkan aktivitas.                 |
+| `output`        |     5 | Berguna jika pengguna mencari berdasarkan hasil produksi/jasa. |
+| `bahan_baku`    |     3 | Mendukung pencarian berbasis input usaha.                      |
+| `kategori`      |     2 | Bisa dicari jika pengguna mengetik "Esensial", dll.            |
+| `digital_hijau` |     1 | Lebih cocok sebagai atribut/filter daripada kata kunci utama.  |
+| `kbli5`         |     1 | Tetap bisa dicari berdasarkan kode.                            |

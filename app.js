@@ -14,13 +14,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const kategoriMap = {
         "esensial": "kategori-esensial",
         "umum ditemukan": "kategori-umum",
-        "potensial": "kategori-potensial"
+        "potensial": "kategori-potensial",
+        "sangat jarang ditemukan": "kategori-sangatjarang"
     };
-        
+
     async function init() {
         try {
+            //const response = await fetch("data/kbli_populer_riau2.xlsx");
             const response = await fetch("data/kbli_populer_riau2.xlsx");
-            
+
             if (!response.ok) {
                 throw new Error("File Excel tidak ditemukan atau gagal dimuat.");
             }
@@ -30,27 +32,51 @@ document.addEventListener("DOMContentLoaded", function () {
             const sheetName = workbook.SheetNames[0];
             const worksheet = workbook.Sheets[sheetName];
             const rows = XLSX.utils.sheet_to_json(worksheet);
-            
+
 
             dataKBLI = rows.map(row => ({
                 kbli1: row.kbli1 || "",
                 kbli5: String(row.kbli5 || ""),
                 judul: row.judul || "",
                 kategori: row.kategori || "",
+                digital_hijau: row.digital_hijau || "",
+
                 contoh: row.contoh_usaha
                     ? String(row.contoh_usaha).split(";").map(x => x.trim()).filter(Boolean)
                     : [],
+
                 keyword: row.kata_kunci
                     ? String(row.kata_kunci).split(";").map(x => x.trim()).filter(Boolean)
-                    : []
-            }));
+                    : [],
 
+                ciri_usaha: row.ciri_usaha
+                    ? String(row.ciri_usaha).split(";").map(x => x.trim()).filter(Boolean)
+                    : [],
+
+                proses: row.proses
+                    ? String(row.proses).split(";").map(x => x.trim()).filter(Boolean)
+                    : [],
+
+                bahan_baku: row.bahan_baku
+                    ? String(row.bahan_baku).split(";").map(x => x.trim()).filter(Boolean)
+                    : [],
+
+                output: row.output
+                    ? String(row.output).split(";").map(x => x.trim()).filter(Boolean)
+                    : []
+
+            }));
             buatFuse();
-            
+            updateStatistik();
+
             // PERBAIKAN: Jangan panggil tampilkan(dataKBLI) di sini agar dashboard kosong saat awal dibuka.
             // Sembunyikan text jumlah hasil di awal
-            document.getElementById("result-count").innerHTML = ""; 
+          //  document.getElementById("result-count").innerHTML = "";
 
+            const resultCount = document.getElementById("result-count");
+            if (resultCount) {
+                resultCount.innerHTML = "";
+            }
         } catch (error) {
             console.error(error);
             document.getElementById("results").innerHTML =
@@ -59,17 +85,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function buatFuse() {
+
         fuse = new Fuse(dataKBLI, {
+
             includeScore: true,
-            threshold: 0.35,
+            threshold: 0.30,
             ignoreLocation: true,
+            minMatchCharLength: 2,
+            shouldSort: true,
+
             keys: [
                 { name: "kbli5", weight: 1 },
-                { name: "judul", weight: 5 },
-                { name: "contoh", weight: 5 },
-                { name: "keyword", weight: 5 }
+                { name: "judul", weight: 8 },
+                { name: "keyword", weight: 10 },
+                { name: "contoh", weight: 7 },
+                { name: "ciri_usaha", weight: 6 },
+                { name: "proses", weight: 5 },
+                { name: "output", weight: 5 },
+                { name: "bahan_baku", weight: 3 },
+                { name: "kategori", weight: 2 },
+                { name: "digital_hijau", weight: 1 }
             ]
         });
+
     }
 
     function tampilkan(data) {
@@ -105,18 +143,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div id="detail-${index}" class="detail" style="display:none;">
                         <hr>
                         <b>Contoh Usaha</b>
-                        <ul>${
-                            item.contoh.length
-                                ? item.contoh.map(x => `<li>${x}</li>`).join("")
-                                : "<li>Tidak tersedia</li>"
-                        }</ul>
+                        <ul>${item.contoh.length
+                    ? item.contoh.map(x => `<li>${x}</li>`).join("")
+                    : "<li>Tidak tersedia</li>"
+                }</ul>
 
                         <b>Kata Kunci</b>
-                        <ul>${
-                            item.keyword.length
-                                ? item.keyword.map(x => `<li>${x}</li>`).join("")
-                                : "<li>Tidak tersedia</li>"
-                        }</ul>
+                        <ul>${item.keyword.length
+                    ? item.keyword.map(x => `<li>${x}</li>`).join("")
+                    : "<li>Tidak tersedia</li>"
+                }</ul>
                     </div>
                 </div>
             `;
@@ -139,9 +175,41 @@ document.addEventListener("DOMContentLoaded", function () {
         tampilkan(hasilPencarian);
     }
 
+    // Statistik pada halaman about
+    function updateStatistik() {
+
+        const totalKBLI5 = dataKBLI.length;
+
+        const totalKBLI1 = new Set(
+            dataKBLI.map(item => item.kbli1)
+        ).size;
+
+        const totalContoh = dataKBLI.reduce(
+            (jumlah, item) => jumlah + item.contoh.length,
+            0
+        );
+
+        // Isi elemen jika memang ada di halaman
+        const elKBLI5 = document.getElementById("total-kbli5");
+        if (elKBLI5) {
+            elKBLI5.textContent = totalKBLI5.toLocaleString("id-ID");
+        }
+
+        const elKBLI1 = document.getElementById("total-kbli1");
+        if (elKBLI1) {
+            elKBLI1.textContent = totalKBLI1.toLocaleString("id-ID");
+        }
+
+        const elContoh = document.getElementById("total-contoh");
+        if (elContoh) {
+            elContoh.textContent = totalContoh.toLocaleString("id-ID");
+        }
+    }
+
+   
     // Event Listener untuk Tombol dan Input
     document.getElementById("btnCari")?.addEventListener("click", cariData);
-    
+
     // Jika Anda ingin pencarian otomatis saat mengetik tetap aktif, biarkan baris ini.
     // Jika ingin hasil HANYA keluar saat tombol Cari/Enter ditekan, hapus baris di bawah ini:
     document.getElementById("search")?.addEventListener("input", cariData);
