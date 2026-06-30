@@ -54,7 +54,7 @@ h1 {
 
 .card {
     background: white;
-    border-left: 8px solid #ff9800;
+   border-left: 8px solid #ff9800; 
     border-radius: 12px;
     padding: 18px;
     margin-bottom: 15px;
@@ -187,7 +187,7 @@ h1 {
     background: #fffdf8;
     /* Menyamakan warna background utama halaman agar kontras di dalam kartu putih */
     border-radius: 8px;
-    border-left: 4px solid #ffd54f;
+   /* border-left: 4px solid #ffd54f; */
     /* Garis tepi kuning lembut khas tema Anda */
     text-align: left;
 }
@@ -459,4 +459,16 @@ footer {
     color: #777;
     font-size: 14px;
     background: #fffdf8;
+}
+
+.list-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px 30px;
+    margin-top:8px;
+    margin-left:18px;
+}
+
+.list-grid li{
+    margin:0;
 }

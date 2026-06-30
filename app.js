@@ -102,9 +102,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 { name: "ciri_usaha", weight: 6 },
                 { name: "proses", weight: 5 },
                 { name: "output", weight: 5 },
-                { name: "bahan_baku", weight: 3 },
-                { name: "kategori", weight: 2 },
-                { name: "digital_hijau", weight: 1 }
+                { name: "bahan_baku", weight: 3 }
+             //   { name: "kategori", weight: 2 },
+             //   { name: "digital_hijau", weight: 1 }
             ]
         });
 
@@ -143,16 +143,27 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div id="detail-${index}" class="detail" style="display:none;">
                         <hr>
                         <b>Contoh Usaha</b>
-                        <ul>${item.contoh.length
-                    ? item.contoh.map(x => `<li>${x}</li>`).join("")
-                    : "<li>Tidak tersedia</li>"
-                }</ul>
 
-                        <b>Kata Kunci</b>
-                        <ul>${item.keyword.length
-                    ? item.keyword.map(x => `<li>${x}</li>`).join("")
-                    : "<li>Tidak tersedia</li>"
-                }</ul>
+                            <ul class="list-grid">
+
+                            ${item.contoh.length
+                            ? item.contoh.map(x=>`<li>${x}</li>`).join("")
+                            : "<li>Tidak tersedia</li>"
+                            }
+
+                            </ul>
+                        <hr>
+                            <b>Kata Kunci</b>
+
+                            <ul class="list-grid">
+
+                            ${item.keyword.length
+                            ? item.keyword.map(x=>`<li>${x}</li>`).join("")
+                            : "<li>Tidak tersedia</li>"
+                            }
+
+                            </ul>
+                
                     </div>
                 </div>
             `;
