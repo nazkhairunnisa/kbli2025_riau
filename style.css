@@ -45,6 +45,13 @@ h1 {
     border-color: #f57c00;
 }
 
+#search::placeholder {
+    color: #b3b3b3;      /* Abu-abu lebih terang */
+    font-size: 14px;     /* Ukuran font lebih kecil */
+    font-weight: 400;    /* Normal */
+    opacity: 1;          /* Supaya warna tampil konsisten */
+}
+
 #result-count {
     margin-top: 20px;
     margin-bottom: 15px;
