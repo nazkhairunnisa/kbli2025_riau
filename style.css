@@ -140,6 +140,19 @@ body {
     color: #f57c00;
 }
 
+/* dipakai di file app.js */
+.list-grid{
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px 30px;
+    margin-top:8px;
+    margin-left:18px;
+}
+
+.list-grid li{
+    margin:0;
+}
 
 /* ---------- Card ---------- */
 

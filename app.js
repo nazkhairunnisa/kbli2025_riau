@@ -34,44 +34,61 @@ document.addEventListener("DOMContentLoaded", function () {
             const rows = XLSX.utils.sheet_to_json(worksheet);
 
 
-            dataKBLI = rows.map(row => ({
-                kbli1: row.kbli1 || "",
-                kbli5: String(row.kbli5 || ""),
-                judul: row.judul || "",
-                kategori: row.kategori || "",
-                digital_hijau: row.digital_hijau || "",
+            dataKBLI = rows.map(row => {
+                // --- Proses Pembersihan KBLI 5 Digit ---
+                let kbli5Raw = String(row.kbli5 || "").trim();
 
-                contoh: row.contoh_usaha
-                    ? String(row.contoh_usaha).split(";").map(x => x.trim()).filter(Boolean)
-                    : [],
+                // Jika diawali petik satu (seperti '01112), hapus petik satunya
+                if (kbli5Raw.startsWith("'")) {
+                    kbli5Raw = kbli5Raw.substring(1);
+                }
 
-                keyword: row.kata_kunci
-                    ? String(row.kata_kunci).split(";").map(x => x.trim()).filter(Boolean)
-                    : [],
+                // Jika dibaca sebagai angka biasa dan nol di depannya hilang (misal: 1112),
+                // paksa agar panjangnya tetap 5 digit dengan menambahkan nol di depan (01112)
+                if (kbli5Raw && !isNaN(kbli5Raw) && kbli5Raw.length < 5) {
+                    kbli5Raw = kbli5Raw.padStart(5, '0');
+                }
+                // ---------------------------------------
 
-                ciri_usaha: row.ciri_usaha
-                    ? String(row.ciri_usaha).split(";").map(x => x.trim()).filter(Boolean)
-                    : [],
+                return {
+                    kbli1: row.kbli1 || "",
+                    kbli5: kbli5Raw, // Menggunakan hasil pembersihan di atas
+                    judul: row.judul || "",
+                    kategori: row.kategori || "",
+                    digital_hijau: row.digital_hijau || "",
 
-                proses: row.proses
-                    ? String(row.proses).split(";").map(x => x.trim()).filter(Boolean)
-                    : [],
+                    contoh: row.contoh_usaha
+                        ? String(row.contoh_usaha).split(";").map(x => x.trim()).filter(Boolean)
+                        : [],
 
-                bahan_baku: row.bahan_baku
-                    ? String(row.bahan_baku).split(";").map(x => x.trim()).filter(Boolean)
-                    : [],
+                    keyword: row.kata_kunci
+                        ? String(row.kata_kunci).split(";").map(x => x.trim()).filter(Boolean)
+                        : [],
 
-                output: row.output
-                    ? String(row.output).split(";").map(x => x.trim()).filter(Boolean)
-                    : []
+                    ciri_usaha: row.ciri_usaha
+                        ? String(row.ciri_usaha).split(";").map(x => x.trim()).filter(Boolean)
+                        : [],
 
-            }));
+                    proses: row.proses
+                        ? String(row.proses).split(";").map(x => x.trim()).filter(Boolean)
+                        : [],
+
+                    bahan_baku: row.bahan_baku
+                        ? String(row.bahan_baku).split(";").map(x => x.trim()).filter(Boolean)
+                        : [],
+
+                    output: row.output
+                        ? String(row.output).split(";").map(x => x.trim()).filter(Boolean)
+                        : []
+                };
+            });
+
             buatFuse();
             updateStatistik();
 
             // PERBAIKAN: Jangan panggil tampilkan(dataKBLI) di sini agar dashboard kosong saat awal dibuka.
             // Sembunyikan text jumlah hasil di awal
-          //  document.getElementById("result-count").innerHTML = "";
+            //  document.getElementById("result-count").innerHTML = "";
 
             const resultCount = document.getElementById("result-count");
             if (resultCount) {
@@ -103,8 +120,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 { name: "proses", weight: 5 },
                 { name: "output", weight: 5 },
                 { name: "bahan_baku", weight: 3 }
-             //   { name: "kategori", weight: 2 },
-             //   { name: "digital_hijau", weight: 1 }
+                //   { name: "kategori", weight: 2 },
+                //   { name: "digital_hijau", weight: 1 }
             ]
         });
 
@@ -147,9 +164,9 @@ document.addEventListener("DOMContentLoaded", function () {
                             <ul class="list-grid">
 
                             ${item.contoh.length
-                            ? item.contoh.map(x=>`<li>${x}</li>`).join("")
-                            : "<li>Tidak tersedia</li>"
-                            }
+                    ? item.contoh.map(x => `<li>${x}</li>`).join("")
+                    : "<li>Tidak tersedia</li>"
+                }
 
                             </ul>
                         <hr>
@@ -158,9 +175,9 @@ document.addEventListener("DOMContentLoaded", function () {
                             <ul class="list-grid">
 
                             ${item.keyword.length
-                            ? item.keyword.map(x=>`<li>${x}</li>`).join("")
-                            : "<li>Tidak tersedia</li>"
-                            }
+                    ? item.keyword.map(x => `<li>${x}</li>`).join("")
+                    : "<li>Tidak tersedia</li>"
+                }
 
                             </ul>
                 
@@ -217,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-   
+
     // Event Listener untuk Tombol dan Input
     document.getElementById("btnCari")?.addEventListener("click", cariData);
 
