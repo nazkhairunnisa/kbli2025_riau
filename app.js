@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 { name: "kbli5", weight: 1 },
                 { name: "judul", weight: 8 },
                 { name: "keyword", weight: 10 },
-                { name: "contoh", weight: 7 },
+                { name: "contoh", weight: 9 },
                 { name: "ciri_usaha", weight: 6 },
                 { name: "proses", weight: 5 },
                 { name: "output", weight: 5 },
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div><b>KBLI 1 Digit:</b> ${item.kbli1}</div>
                     <div class="judul">${item.judul}</div>
                     <div class="kategori ${kategoriClass}">
-                        ${item.kategori}</div>
+                        ${toTitleCase(item.kategori)}</div>
 
                     <button class="detail-button" onclick="toggleDetail(${index})">
                         Lihat Detail
@@ -201,6 +201,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const hasilPencarian = result.slice(0, 20).map(x => x.item);
 
         tampilkan(hasilPencarian);
+    }
+
+    function toTitleCase(text) {
+        return String(text)
+            .toLowerCase()
+            .replace(/\b\w/g, huruf => huruf.toUpperCase());
     }
 
     // Statistik pada halaman about
