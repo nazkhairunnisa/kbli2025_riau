@@ -113,10 +113,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             keys: [
                 { name: "kbli5", weight: 1 },
-                { name: "judul", weight: 8 },
+                { name: "judul", weight: 7 },
                 { name: "keyword", weight: 10 },
                 { name: "contoh", weight: 9 },
-                { name: "ciri_usaha", weight: 6 },
+                { name: "ciri_usaha", weight: 4 },
                 { name: "proses", weight: 5 },
                 { name: "output", weight: 5 },
                 { name: "bahan_baku", weight: 3 }
